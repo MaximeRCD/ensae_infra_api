@@ -1,3 +1,33 @@
+# Table of Content
+<!-- TOC -->
+
+- [Table of Content](#table-of-content)
+- [Contributing to ensae_infra_api](#contributing-to-ensae_infra_api)
+    - [Clone the Repository](#clone-the-repository)
+    - [Create and Activate a Virtual Environment](#create-and-activate-a-virtual-environment)
+        - [Install requiered packages](#install-requiered-packages)
+        - [Install new dependencies](#install-new-dependencies)
+    - [Create a New Branch](#create-a-new-branch)
+    - [Pull the Latest Changes](#pull-the-latest-changes)
+    - [Work on Your Contribution](#work-on-your-contribution)
+    - [Commit Your Changes](#commit-your-changes)
+    - [Push Your Changes](#push-your-changes)
+    - [Create a Pull Request](#create-a-pull-request)
+- [Initiating a FastAPI Project](#initiating-a-fastapi-project)
+    - [Prerequisites](#prerequisites)
+    - [Install FastAPI and Uvicorn](#install-fastapi-and-uvicorn)
+    - [Create a FastAPI App](#create-a-fastapi-app)
+    - [Run the FastAPI App](#run-the-fastapi-app)
+    - [Explore FastAPI Documentation](#explore-fastapi-documentation)
+- [Project Structure Explanation](#project-structure-explanation)
+    - [/models/](#models)
+    - [/routers/](#routers)
+    - [/services/](#services)
+    - [database.py](#databasepy)
+    - [main.py](#mainpy)
+
+<!-- /TOC -->
+
 # Contributing to ensae_infra_api
 
 ## Clone the Repository
