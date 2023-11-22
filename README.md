@@ -1,7 +1,5 @@
 # Contributing to ensae_infra_api
 
-Thank you for your interest in contributing to the `ensae_infra_api` project! We welcome contributions from the community to help improve and maintain this project. Please follow these guidelines to get started:
-
 ## Clone the Repository
 
 To begin contributing, you'll need to clone the project's repository to your local machine. You can do this by running the following command in your terminal:
@@ -76,3 +74,56 @@ git push origin dev_contributorname
 ## Create a Pull Request
 
 Finally, create a pull request (PR) on GitHub to merge your changes into the `dev` branch of the project. Provide a clear title and description for your PR, explaining the purpose and details of your contribution. A project maintainer will review your changes, provide feedback, and possibly merge your PR into the project.
+
+
+# Initiating a FastAPI Project
+
+FastAPI is a modern, fast (high-performance) web framework for building APIs with Python 3.6+ based on standard Python type hints. This guide will walk you through the steps to initiate a FastAPI project.
+
+## Prerequisites
+
+Before you start, make sure you have the following prerequisites installed:
+
+- Python 3.6 or higher
+- pip (Python package manager)
+
+## Install FastAPI and Uvicorn
+
+FastAPI relies on ASGI (Asynchronous Server Gateway Interface) servers like Uvicorn. You need to install both FastAPI and Uvicorn:
+
+```bash
+pip install fastapi uvicorn
+```
+
+## Create a FastAPI App
+
+You can create a FastAPI app by writing a Python script. Here's a minimal example:
+
+```python
+# main.py
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello, FastAPI!"}
+```
+
+## Run the FastAPI App
+
+To run your FastAPI app, use the Uvicorn server. Replace `main` with your Python script's filename (without the .py extension):
+
+```bash
+uvicorn main:app --reload
+```
+
+- `main:app` specifies the location of your FastAPI app instance.
+- `--reload` enables automatic code reloading during development.
+
+Your FastAPI app should now be running locally at http://localhost:8000. You can access the root route at http://localhost:8000/ in your web browser or API client.
+
+## Explore FastAPI Documentation
+
+FastAPI provides automatic documentation for your API. You can access it at http://localhost:8000/docs or http://localhost:8000/redoc. These interactive documentation pages allow you to explore and test your API endpoints.
