@@ -34,6 +34,26 @@ In your terminal you should see (venv) before command line like so:
   ```bash
   (.venv) PS C:\Users\maxim\ENSAE\Infra\ensae_infra_api>
   ```
+### Install requiered packages
+Run the following command :
+```bash
+pip install -r requirements.txt
+```
+### Install new dependencies
+- Make sure you are under your virtual environement
+    ```bash
+    (.venv) PS C:\Users\maxim\ENSAE\Infra\ensae_infra_api>
+    ```
+- Install the dependencies or package
+    ```bash
+    pip install <package_name>
+    ```
+- If the changes which needed the package installation are pushed then do not forget to push the dependencies to the requirement.txt file
+    ```bash
+    pip freeze > requirement.txt
+    ```
+
+Now you are safe
 ## Create a New Branch
 
 Before you start working on your contribution, create a new branch based on the `dev` branch. You should name the branch with your contributor name to make it clear who is working on the contribution. Replace `contributorname` with your actual contributor name.
