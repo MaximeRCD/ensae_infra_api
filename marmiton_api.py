@@ -8,28 +8,6 @@ import urllib.request
 import re
 import ssl
 #%%
-#%%
-"""
-Search recipes parsing the returned html data.
-Options:
-'aqt': string of keywords separated by a white space  (query search)
-Optional options :
-'dt': "entree" | "platprincipal" | "accompagnement" | "amusegueule" | "sauce"  (plate type)
-'exp': 1 | 2 | 3  (plate expense 1: cheap, 3: expensive)
-'dif': 1 | 2 | 3 | 4  (recipe difficultie 1: easy, 4: advanced)
-'veg': 0 | 1  (vegetarien only: 1)
-'rct': 0 | 1  (without cook: 1)
-'sort': "markdesc" (rate) | "popularitydesc" (popularity) | "" (empty for relevance)
-"""
-query_dict = {
-  "aqt": "fondue savoyarde",      # Query keywords - separated by a white space
-  "dt": "platprincipal",      # Plate type : "entree", "platprincipal", "accompagnement", "amusegueule", "sauce" (optional)
-  "exp": 2,                   # Plate price : 1 -> Cheap, 2 -> Medium, 3 -> Kind of expensive (optional)
-  "dif": 2,                   # Recipe difficulty : 1 -> Very easy, 2 -> Easy, 3 -> Medium, 4 -> Advanced (optional)
-  "veg": 0, 
-  "": 0,                  # Vegetarien only : 0 -> False, 1 -> True (optional)
-}
-
 #returns soup of first result recipe from a query
 def get_url_from_query(query_dict):
     base_url = "http://www.marmiton.org/recettes/recherche.aspx?"
@@ -158,14 +136,11 @@ def _get_shopping_list(urls,list_nb):
         ingredients_lists.append(_get_ingredients(soup))
         count_lists.append(set_quantities(soup,_get_quantities(soup),nb))
         units_lists.append(_get_units(soup))
-
     for (ingredient,count,unit) in zip(ingredients_lists,count_lists,units_lists):
         res.append((aggregate(ingredient,count,unit)))
-    
     first=res[0]
     for i in range(1,len(res)):
         first=merge_two(first,res[i])
-
     return first
           
 # %%
