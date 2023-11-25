@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from database import client
+from database import client, MARMYTHON_DB
+
 app = FastAPI()
 
 @app.get("/")
@@ -9,7 +10,9 @@ def read_root():
 @app.on_event("startup")
 async def startup_db_client():
     try:
-        client.admin.command("ping")
+        MARMYTHON_DB.command("ping")
+        for collection in MARMYTHON_DB.list_collections():
+            print(collection)
         print(
             "Pinged your deployment. You successfully connected to MongoDB! Choose a db"
         )
