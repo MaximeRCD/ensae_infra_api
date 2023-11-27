@@ -6,3 +6,8 @@ class UserMongoDB(BaseModel):
     name: str
     first_name: str
     age: int
+
+class UserInMongoDB(BaseModel):
+    name: str
+    first_name: str
+    age: int
