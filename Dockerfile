@@ -4,9 +4,11 @@ FROM python:3.10
 #
 WORKDIR /infra_project_api
 
+ENV ENV=STAGING
 
 #
 COPY ./requirements.txt /infra_project_api/requirements.txt
+COPY ./.env /infra_project_api/.env
 COPY ./routers/* /infra_project_api/routers/
 COPY ./models/* /infra_project_api/models/
 COPY ./services/* /infra_project_api/services/
