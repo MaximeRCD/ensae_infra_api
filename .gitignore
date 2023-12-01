@@ -159,9 +159,20 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+docker-compose.yaml
+mongo_data/
+
+docker-compose.yaml
+mongo_data/
+
+docker-compose.yaml
+mongo_data/
+
 tmp.py
 tmp.ipynb
 soupe.txt
 Quiche-lorraine-au-fromage-dail-et-fines-herbes-Recette-de-Quiche-lorraine-au-fromage-dail-et-fines-herbes.html
 
 __init__.py
+
+.DS_Store
