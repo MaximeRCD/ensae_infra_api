@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from database import client, MARMYTHON_DB
 from routers.first_router import first_router
+from routers.router_api import router_api
 
 app = FastAPI()
 
 app.include_router(first_router)
+app.include_router(router_api)
 
 @app.get("/")
 def read_root():

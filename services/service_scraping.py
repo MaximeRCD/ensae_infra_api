@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#%%
 from bs4 import BeautifulSoup
 
 import urllib.parse
@@ -7,8 +5,9 @@ import urllib.request
 
 import re
 import ssl
-#%%
+
 #returns soup of first result recipe from a query
+
 def get_url_from_query(query_dict):
     base_url = "http://www.marmiton.org/recettes/recherche.aspx?"
     query_url = urllib.parse.urlencode(query_dict)
@@ -55,7 +54,15 @@ def get_url_from_query(query_dict):
     url = base_url + ("" if uri.startswith("/") else "/") + uri
     return url
 
+def get_url_from_string(string):
+
+    query_dict = {'aqt': string}
+
+    return get_url_from_query(query_dict)
+
 def get_soup_from_url(url):
+
+
     try:
         handler = urllib.request.HTTPSHandler(context=ssl._create_unverified_context())
         opener = urllib.request.build_opener(handler)
@@ -68,8 +75,6 @@ def get_soup_from_url(url):
 
     return soup
 
-#%%
-@staticmethod
 def _get_name(soup):
 	return soup.find("h1").get_text().strip(' \t\n\r')
 
@@ -88,10 +93,12 @@ def _get_units(soup):
     return units
 
 def _get_nb_persons(soup):
+
     input_element = soup.find("div", {"class": "mrtn-recette_ingredients-counter"})
     nb = input_element.get('data-servingsnb')
     #print('(pour ' + nb + ' personnes)')
     return nb    
+
 def set_quantities(soup,count,nb_pers):
     nb = _get_nb_persons(soup)
     if int(nb) != nb_pers:
@@ -107,40 +114,18 @@ def aggregate(ingredient,unit,count):
         ingredients.append([ingredient[i],unit[i],count[i]])
     return ingredients
 
-def merge_two(list1, list2):
-    res=[]
-    done=[]
-    for ingredient,count,unit in list1:
-        l=len(done)
-        for i in range(len(list2)):
-            if (ingredient == list2[i][0]) and (unit == list2[i][2]) :
-                done.append(i)
-                res.append([ingredient,float(count)+float(list2[i][1]),unit])
-        if len(done)==l:
-            res.append([ingredient,count,unit])
-                
-    for i in range(len(list2)):
-        if i not in done:
-            res.append(list2[i])
-        
-    return res
-#%%
-@staticmethod
-def _get_shopping_list(urls,list_nb):
-    ingredients_lists = []
-    count_lists=[]
-    units_lists=[]
-    res=[]
-    for (url,nb) in zip(urls,list_nb):
-        soup = get_soup_from_url(url)
-        ingredients_lists.append(_get_ingredients(soup))
-        count_lists.append(set_quantities(soup,_get_quantities(soup),nb))
-        units_lists.append(_get_units(soup))
-    for (ingredient,count,unit) in zip(ingredients_lists,count_lists,units_lists):
-        res.append((aggregate(ingredient,count,unit)))
-    first=res[0]
-    for i in range(1,len(res)):
-        first=merge_two(first,res[i])
-    return first
-          
-# %%
+### importer model recipe
+def _get_recipe_from_scrap(string):  ### refaire le return 
+    url = get_url_from_string(string)
+    soup = get_soup_from_url(url)
+    name = _get_name(soup)
+    ingredients = _get_ingredients(soup)
+    count = _get_quantities(soup)
+    unit = _get_units(soup)
+    nb_persons = _get_nb_persons(soup)
+    ingredients = aggregate(ingredients,unit,count)
+    print(ingredients)
+
+    return model_recipe.RecipeMongoDB(name=name,ingredients=ingredients,url=url,nb_persons=nb_persons)
+
+#print(_get_recipe_from_scrap("poulet")) pour tester
