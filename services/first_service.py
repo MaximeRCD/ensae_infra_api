@@ -53,3 +53,8 @@ async def delete_user(user_name: str):
         return deleted_user
     else:
         raise HTTPException(status_code=404, detail="user not found")
+    
+def sum_ages():
+    all_users  = read_users()
+    total_age = sum(list(map(lambda info: info.age, all_users)))
+    return total_age
