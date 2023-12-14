@@ -15,7 +15,7 @@ async def read_users(skip: int = 0, limit: int = 10):
     return users
 
 async def create_user(user: UserInMongoDB):
-    user_dict = user.dict()
+    user_dict = user.model_dump()
     try:
         result = MARMYTHON_DB.test.insert_one(user_dict)
         user_dict["_id"] = ObjectId(result.inserted_id)
@@ -37,7 +37,7 @@ async def read_user(user_name: str):
 
 async def update_user(user_name: str, user: UserInMongoDB):
     updated_user = MARMYTHON_DB.test.find_one_and_update(
-        {"name": user_name}, {"$set": user.dict()}, return_document=True
+        {"name": user_name}, {"$set": user.model_dump()}, return_document=True
     )
     if updated_user:
         return updated_user
@@ -54,7 +54,7 @@ async def delete_user(user_name: str):
     else:
         raise HTTPException(status_code=404, detail="user not found")
     
-def sum_ages():
-    all_users  = read_users()
-    total_age = sum(list(map(lambda info: info.age, all_users)))
+def sum_ages(user_list: List[UserMongoDB]):
+    total_age = sum(list(map(lambda info: info['age'], user_list)))
     return total_age
+
