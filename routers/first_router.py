@@ -12,6 +12,7 @@ first_router = APIRouter(prefix="/user", tags=["user"])
 async def get_users():
     return await first_service.read_users()
 
+
 @first_router.post("/", response_model=UserMongoDB)
 async def create_user(user: UserInMongoDB):
     return await first_service.create_user(user=user)

@@ -8,11 +8,10 @@ from bson import ObjectId
 
 async def read_users(skip: int = 0, limit: int = 10):
     users = []
-    for user in (
-        MARMYTHON_DB.test.find().skip(skip).limit(limit)
-    ):
+    for user in MARMYTHON_DB.test.find().skip(skip).limit(limit):
         users.append(user)
     return users
+
 
 async def create_user(user: UserInMongoDB):
     user_dict = user.dict()
@@ -46,9 +45,7 @@ async def update_user(user_name: str, user: UserInMongoDB):
 
 
 async def delete_user(user_name: str):
-    deleted_user =  MARMYTHON_DB.test.find_one_and_delete(
-        {"name": user_name}
-    )
+    deleted_user = MARMYTHON_DB.test.find_one_and_delete({"name": user_name})
     if deleted_user:
         return deleted_user
     else:
