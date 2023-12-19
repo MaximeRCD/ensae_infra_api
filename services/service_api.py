@@ -4,7 +4,7 @@ import urllib.parse
 import urllib.request
 import re
 import ssl
-from services import service_scraping, service_DB
+from services import service_scraping
 
 
 async def set_quantities(list_ingredient,nb_old,nb_pers):
@@ -45,15 +45,15 @@ async def merge_two(list1, list2):
         
     return res
 
-async def get_shopping_list(strings:List(str),nb_pers:int):
+async def get_shopping_list(strings:list(str),nb_pers:int):
     recipes = []
     for string in strings:  
-        if service_DB.is_string_in_DB(string):  
+        '''if service_DB.is_string_in_DB(string):  
             recipe = service_DB.get_recipe_from_DB(string)  
             recipes.append(recipe)
-        else:
-            recipe = service_scraping.get_recipe_from_scrap(string)   
-            recipe.append(recipe)
+        else:'''
+        recipe = service_scraping.get_recipe_from_scrap(string)   
+        recipe.append(recipe)
     
     ingredients_lists = []
     for recipe in recipes:
