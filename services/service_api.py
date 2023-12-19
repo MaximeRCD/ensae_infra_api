@@ -14,6 +14,8 @@ async def set_quantities(list_ingredient,nb_old,nb_pers):
     if int(nb_old) != nb_pers:
         for i in range(len(counts)):
             qu = counts[i]
+            if qu == '':
+                continue
             qu=float(qu)
             counts[i] = qu* nb_pers/int(nb_old)
         new_list=[{'name':n,'quantity':c,'unit':u} for (n,c,u) in zip(names,counts,units)]
@@ -30,14 +32,24 @@ async def aggregate(ingredient,unit,count):
 async def merge_two(list1, list2):
     res=[]
     done=[]
-    for ingredient,count,unit in list1:
+    for ingredients in list1:
+        ingredient=ingredients['name']
+        count=ingredients['quantity']
+        unit=ingredients['unit']
         l=len(done)
         for i in range(len(list2)):
-            if (ingredient == list2[i][0]) and (unit == list2[i][2]) :
-                done.append(i)
-                res.append([ingredient,float(count)+float(list2[i][1]),unit])
+            if (ingredient == list2[i]['name']) and (unit == list2[i]['unit']): 
+                if count=='':
+                    done.append(i)
+                    res.append(list2[i])
+                elif list2[i]['quantity']=='':
+                    done.append(i)
+                    res.append({'name':ingredient,'quantity':count,'unit':unit})
+                else :
+                    done.append(i)
+                    res.append({'name':ingredient,'quantity':float(count)+float(list2[i]['quantity']),'unit':unit})
         if len(done)==l:
-            res.append([ingredient,count,unit])
+            res.append({'name':ingredient,'quantity':count,'unit':unit})
                 
     for i in range(len(list2)):
         if i not in done:
@@ -45,7 +57,7 @@ async def merge_two(list1, list2):
         
     return res
 
-async def get_shopping_list(strings:list(str),nb_pers:int):
+async def get_shopping_list(strings,nb_pers):
     recipes = []
     for string in strings:  
         '''if service_DB.is_string_in_DB(string):  
@@ -53,11 +65,12 @@ async def get_shopping_list(strings:list(str),nb_pers:int):
             recipes.append(recipe)
         else:'''
         recipe = service_scraping.get_recipe_from_scrap(string)   
-        recipe.append(recipe)
+        recipes.append(recipe)
     
     ingredients_lists = []
     for recipe in recipes:
-        ingredients_lists.append(set_quantities(recipe.ingredients,recipe.nb_persons,nb_pers))
+        print(recipe)
+        ingredients_lists.append(set_quantities(recipe['ingredients'],recipe['nb_persons'],nb_pers))
     
     first=ingredients_lists[0]
     for i in range(1,len(ingredients_lists)):

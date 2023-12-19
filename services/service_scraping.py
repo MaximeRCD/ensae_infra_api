@@ -101,11 +101,11 @@ def _get_nb_persons(soup):
 def aggregate(ingredient,unit,count):
     ingredients = []
     for i in range(len(ingredient)):
-        ingredients.append([ingredient[i],unit[i],count[i]])
+        ingredients.append({'name':ingredient[i],'quantity':count[i],'unit':unit[i]})
     return ingredients
 
 ### importer model recipe
-def _get_recipe_from_scrap(string):  ### refaire le return 
+def get_recipe_from_scrap(string):  ### refaire le return 
     url = get_url_from_string(string)
     soup = get_soup_from_url(url)
     name = _get_name(soup)
