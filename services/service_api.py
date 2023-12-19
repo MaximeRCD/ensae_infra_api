@@ -4,8 +4,7 @@ import urllib.parse
 import urllib.request
 import re
 import ssl
-import service_scraping
-import service_DB
+from services import service_scraping, service_DB
 
 
 async def set_quantities(list_ingredient,nb_old,nb_pers):
