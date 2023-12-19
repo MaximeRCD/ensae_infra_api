@@ -78,22 +78,21 @@ def get_soup_from_url(url):
 def _get_name(soup):
 	return soup.find("h1").get_text().strip(' \t\n\r')
 
-@staticmethod
+
 def _get_ingredients(soup):
       ingredients = [i.get_text().strip(' \t\n\r') for i in soup.findAll("span", {"class": "ingredient-name"})]
       return ingredients
-@staticmethod
+
 def _get_quantities(soup):
     count = [i.get_text().strip(' \t\n\r') for i in soup.findAll("span", {"class": "count"})]
     return count
 
-@staticmethod
+
 def _get_units(soup):
     units = [i.get_text().strip(' \t\n\r') for i in soup.findAll("span", {"class": "unit"})]
     return units
 
 def _get_nb_persons(soup):
-
     input_element = soup.find("div", {"class": "mrtn-recette_ingredients-counter"})
     nb = input_element.get('data-servingsnb')
     #print('(pour ' + nb + ' personnes)')
@@ -124,8 +123,7 @@ def _get_recipe_from_scrap(string):  ### refaire le return
     unit = _get_units(soup)
     nb_persons = _get_nb_persons(soup)
     ingredients = aggregate(ingredients,unit,count)
-    print(ingredients)
-
-    return model_recipe.RecipeMongoDB(name=name,ingredients=ingredients,url=url,nb_persons=nb_persons)
+    recipe={"name": name, "url": url, "ingredients": ingredients, "nb_persons": nb_persons}
+    return recipe
 
 #print(_get_recipe_from_scrap("poulet")) pour tester

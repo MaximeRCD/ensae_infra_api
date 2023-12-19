@@ -7,7 +7,7 @@ class UserMongoDB(BaseModel):
     first_name: str
     age: int
 
-class UserInMongoDB(BaseModel):
+class UserInMongoDB(BaseModel): #
     name: str
     first_name: str
     age: int

@@ -1,20 +1,19 @@
 from bs4 import BeautifulSoup
-
+from typing import List
 import urllib.parse
 import urllib.request
-
 import re
 import ssl
 import service_scraping
 import service_DB
 
-def aggregate(ingredient,unit,count):
+async def aggregate(ingredient,unit,count):
     ingredients = []
     for i in range(len(ingredient)):
         ingredients.append([ingredient[i],unit[i],count[i]])
     return ingredients
 
-def merge_two(list1, list2):
+async def merge_two(list1, list2):
     res=[]
     done=[]
     for ingredient,count,unit in list1:
@@ -31,12 +30,10 @@ def merge_two(list1, list2):
             res.append(list2[i])
         
     return res
-@staticmethod
 
-def _get_shopping_list(strings,list_nb):
-
+async def get_shopping_list(strings:List(str),nb_pers:int):
     recipes = []
-    for string in strings:
+    for string in strings:  #gérer le nombre de personnes si ce n'est pas le bon, faire une fonction pour le faire
         if service_DB.is_string_in_DB(string):  
             recipe = service_DB.get_recipe_from_DB(string)  
             recipes.append(recipe)
@@ -47,20 +44,8 @@ def _get_shopping_list(strings,list_nb):
     ingredients_lists = [recipe.ingredients for recipe in recipes]
     
     first=ingredients_lists[0]
-    for i in range(1,len(res)):
+    for i in range(1,len(ingredients_lists)):
         first=merge_two(first,ingredients_lists[i])
+        
     return first
 
-
-
-'''for (url,nb) in zip(urls,list_nb):
-    soup = get_soup_from_url(url)
-    ingredients_lists.append(_get_ingredients(soup))
-    count_lists.append(set_quantities(soup,_get_quantities(soup),nb))
-    units_lists.append(_get_units(soup))
-for (ingredient,count,unit) in zip(ingredients_lists,count_lists,units_lists):
-    res.append((aggregate(ingredient,count,unit)))
-first=res[0]
-for i in range(1,len(res)):
-    first=merge_two(first,res[i])
-return first'''
