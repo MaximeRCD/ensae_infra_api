@@ -98,15 +98,6 @@ def _get_nb_persons(soup):
     #print('(pour ' + nb + ' personnes)')
     return nb    
 
-def set_quantities(soup,count,nb_pers):
-    nb = _get_nb_persons(soup)
-    if int(nb) != nb_pers:
-        for i in range(len(count)):
-            qu = count[i]
-            qu=float(qu)
-            count[i] = qu* nb_pers/int(nb)
-    return count
-
 def aggregate(ingredient,unit,count):
     ingredients = []
     for i in range(len(ingredient)):

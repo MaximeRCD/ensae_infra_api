@@ -2,20 +2,23 @@ from pydantic import BaseModel
 from bson import ObjectId
 from typing import Optional, List, Tuple
 
-class RecipeMongoDB(BaseModel):
-    _id: ObjectId  # Use PyMongo's ObjectId type
+class Ingredient(BaseModel):
     name: str
-    ingredients: List[List[str]]  #va devenir List[ingrédient]
-    url: str
-    nb_persons: int
+    quantity: float
+    unit: str
 
 class RecipeInMongoDB(BaseModel):
+    _id: ObjectId  
     name: str
-    ingredients: List[List[str]]
+    ingredients: List[Ingredient]  
     url: str
     nb_persons: int
 
-    # On ne sait pas bien comment créer une instance de classe 
+class RecipeMongoDB(BaseModel):
+    name: str
+    ingredients: List[Ingredient]
+    url: str
+    nb_persons: int
     
-#add un type ingrédient (qui a comme instances un nom et une quantité et une unit)
+
     
