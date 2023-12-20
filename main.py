@@ -1,15 +1,17 @@
-
 from fastapi import FastAPI
 from database import client, MARMYTHON_DB
-from routers.router_api import router_api
+from routers.router_api import router_api, router_database
 
 app = FastAPI()
 
 app.include_router(router_api)
+app.include_router(router_database)
+
 
 @app.get("/")
 def read_root():
     return {"message": "Hello, FastAPI!"}
+
 
 @app.on_event("startup")
 async def startup_db_client():
