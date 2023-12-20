@@ -53,3 +53,8 @@ async def delete_single_recipe(recipe_name: str):
         return await service_DB.delete_recipe(recipe_name)
     except HTTPException as e:
         return e
+
+
+@router_database.get("/does_recipe_exist/{recipe_name}", response_model=bool)
+async def does_recipe_exist(recipe_name: str):
+    return await service_DB.does_recipe_exist(recipe_name)
