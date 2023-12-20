@@ -1,7 +1,5 @@
-# %%
 import sys
 
-sys.path.append("/home/syrine/Documents/ensae/projet infra/ensae_infra_api/")
 from typing import List
 from fastapi import APIRouter
 from pydantic import BaseModel
@@ -10,8 +8,6 @@ from services.service_api import get_shopping_list
 
 from services import service_DB
 from fastapi import HTTPException
-
-# %%
 
 router_api = APIRouter(prefix="/recipe", tags=["Recipe"])
 
