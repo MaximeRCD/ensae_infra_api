@@ -177,3 +177,4 @@ __init__.py
 
 .DS_Store
 tests/
+*.ipynb
