@@ -173,5 +173,8 @@ tmp.ipynb
 soupe.txt
 Quiche-lorraine-au-fromage-dail-et-fines-herbes-Recette-de-Quiche-lorraine-au-fromage-dail-et-fines-herbes.html
 
-# Remove all notebooks
+__init__.py
+
+.DS_Store
+tests/
 *.ipynb
