@@ -1,6 +1,6 @@
 from database import MARMYTHON_DB
 from typing import List
-from models.recipe_model import RecipeMongoDB
+from models.model_recipe import RecipeMongoDB
 from pymongo.errors import DuplicateKeyError
 from fastapi import HTTPException
 from bson import ObjectId
