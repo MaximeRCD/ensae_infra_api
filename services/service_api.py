@@ -7,7 +7,7 @@ import ssl
 from services import service_scraping
 
 
-async def set_quantities(list_ingredient,nb_old,nb_pers):
+def set_quantities(list_ingredient,nb_old,nb_pers):
     counts=[ingredient['quantity'] for ingredient in list_ingredient]
     names=[ingredient['name'] for ingredient in list_ingredient]
     units=[ingredient['unit'] for ingredient in list_ingredient]
@@ -23,13 +23,13 @@ async def set_quantities(list_ingredient,nb_old,nb_pers):
     return list_ingredient
 
 
-async def aggregate(ingredient,unit,count):
+def aggregate(ingredient,unit,count):
     ingredients = []
     for i in range(len(ingredient)):
         ingredients.append([ingredient[i],unit[i],count[i]])
     return ingredients
 
-async def merge_two(list1, list2):
+def merge_two(list1, list2):
     res=[]
     done=[]
     for ingredients in list1:
@@ -76,5 +76,9 @@ async def get_shopping_list(strings,nb_pers):
     for i in range(1,len(ingredients_lists)):
         first=merge_two(first,ingredients_lists[i])
         
+    for ingre in first:
+        if ingre['quantity']=='':
+            ingre['quantity'] = 0.0
+    
     return first 
 

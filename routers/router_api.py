@@ -17,6 +17,6 @@ async def create_recipe(recipe: RecipeInMongoDB):
 
 @router_api.post("/", response_model=List[Ingredient]) 
 async def _get_shopping_list(recipe: List[str],nb_pers:int):
-    return await get_shopping_list(recipe=recipe,nb_pers=nb_pers)
+    return await get_shopping_list(strings=recipe,nb_pers=nb_pers)
 
     
