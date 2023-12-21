@@ -176,5 +176,4 @@ Quiche-lorraine-au-fromage-dail-et-fines-herbes-Recette-de-Quiche-lorraine-au-fr
 __init__.py
 
 .DS_Store
-tests/
 *.ipynb
