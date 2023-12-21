@@ -8,7 +8,6 @@ def test_env_conf():
     env = os.getenv("ENV")
     assert env in ["DEV", "STAGING"]
 
-    
 
 def test_db_conf():
     env = os.getenv("ENV")
